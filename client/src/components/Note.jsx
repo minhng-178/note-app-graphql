@@ -12,7 +12,6 @@ import { debounce } from '@mui/material';
 
 export default function Note() {
   const { note } = useLoaderData();
-
   const submit = useSubmit();
   const location = useLocation();
   const [editorState, setEditorState] = useState(() => {

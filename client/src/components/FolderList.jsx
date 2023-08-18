@@ -2,7 +2,7 @@ import { Card, CardContent, List, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-// import NewFolder from './NewFolder';
+import NewFolder from './NewFolder';
 
 export default function FolderList({ folders }) {
   const { folderId } = useParams();
@@ -24,7 +24,7 @@ export default function FolderList({ folders }) {
           <Typography sx={{ fontWeight: 'bold', color: 'white' }}>
             Folders
           </Typography>
-          {/* <NewFolder /> */}
+          <NewFolder />
         </Box>
       }
     >

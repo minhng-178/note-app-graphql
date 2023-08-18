@@ -41,18 +41,17 @@ export default function NoteList() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId, folder.notes]);
 
-  // const handleAddNewNote = () => {
-  //   submit(
-  //     {
-  //       content: '',
-  //       folderId,
-  //     },
-  //     { method: 'post', action: `/folders/${folderId}` }
-  //   );
-  // };
+  const handleAddNewNote = () => {
+    submit(
+      {
+        content: '',
+        folderId,
+      },
+      { method: 'post', action: `/folders/${folderId}` }
+    );
+  };
 
   return (
-
     <Grid container height='100%'>
       <Grid
         item
@@ -77,11 +76,11 @@ export default function NoteList() {
               }}
             >
               <Typography sx={{ fontWeight: 'bold' }}>Notes</Typography>
-              {/* <Tooltip title='Add Note' onClick={handleAddNewNote}>
+              <Tooltip title='Add Note' onClick={handleAddNewNote}>
                 <IconButton size='small'>
                   <NoteAddOutlined />
                 </IconButton>
-              </Tooltip> */}
+              </Tooltip>
             </Box>
           }
         >

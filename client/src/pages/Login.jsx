@@ -2,25 +2,40 @@ import { Button, Typography } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { graphQLRequest } from "../utils/request";
 
 function Login() {
   const auth = getAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
   const { user } = useContext(AuthContext);
 
   const handleLoginWithGoogle = async () => {
-    const prodiver = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();
 
-    const res = await signInWithPopup(auth, prodiver);
-    console.log({ res });
+    const {
+      user: { uid, displayName },
+    } = await signInWithPopup(auth, provider);
+
+    const { data } = await graphQLRequest({
+      query: `mutation register($uid: String!, $name: String!) {
+      register(uid: $uid, name: $name) {
+        uid
+        name
+      }
+    }`,
+      variables: {
+        uid,
+        name: displayName,
+      },
+    });
+    console.log('register', { data });
   };
 
-  if (user?.uid) {
-    navigate("/");
-    return;
+  if (localStorage.getItem('accessToken')) {
+    return <Navigate to="/" />
   }
-
   return (
     <>
       <Typography variant="h5" sx={{ marginBottom: "10px" }}>
