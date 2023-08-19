@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
+import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import {
@@ -27,7 +28,7 @@ export default function NoteList() {
   const submit = useSubmit();
   const navigate = useNavigate();
 
-  console.log('[NoteLIST]', { folder });
+  // console.log('[NoteLIST]', { folder });
 
   useEffect(() => {
     if (noteId) {
@@ -50,6 +51,15 @@ export default function NoteList() {
       { method: 'post', action: `/folders/${folderId}` }
     );
   };
+
+  const handleDeleteNote = () => {
+    submit(
+      {
+        noteId,
+      },
+      { method: 'delete', action: `/folders/${folderId}/note/${noteId}` }
+    );
+  }
 
   return (
     <Grid container height='100%'>
@@ -95,6 +105,9 @@ export default function NoteList() {
                 <Card
                   sx={{
                     mb: '5px',
+                    display: 'flex',
+                    alignContent: 'center',
+                    justifyContent: 'space-between',
                     backgroundColor:
                       id === activeNoteId ? 'rgb(255 211 140)' : null,
                   }}
@@ -112,6 +125,11 @@ export default function NoteList() {
                       {moment(updatedAt).format('MMMM Do YYYY, h:mm:ss a')}
                     </Typography>
                   </CardContent>
+                  <Tooltip title='Delete Note' onClick={handleDeleteNote}>
+                    <IconButton size='small'>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
                 </Card>
               </Link>
             );

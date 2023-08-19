@@ -29,7 +29,7 @@ export default function Note() {
     setEditorState(EditorState.createWithContent(state));
   }, [note.id]);
 
-  console.log({ location })
+  // console.log({ location })
 
   useEffect(() => {
     debouncedMemorized(rawHTML, note, location.pathname);

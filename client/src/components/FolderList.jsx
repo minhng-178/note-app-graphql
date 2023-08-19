@@ -1,13 +1,19 @@
-import { Card, CardContent, List, Typography } from '@mui/material';
+import { Card, CardContent, IconButton, List, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 import NewFolder from './NewFolder';
 
 export default function FolderList({ folders }) {
   const { folderId } = useParams();
   console.log({ folderId });
   const [activeFolderId, setActiveFolderId] = useState(folderId);
+
+  const handleDeleteNote = () => {
+    console.log({ folderId });
+  }
+
 
   return (
     <List
@@ -41,6 +47,9 @@ export default function FolderList({ folders }) {
             <Card
               sx={{
                 mb: '5px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 backgroundColor:
                   id === activeFolderId ? 'rgb(255 211 140)' : null,
               }}
@@ -50,6 +59,11 @@ export default function FolderList({ folders }) {
               >
                 <Typography sx={{ fontSize: 16, fontWeight: 'bold' }}>{name}</Typography>
               </CardContent>
+              <Tooltip title='Delete Note' onClick={handleDeleteNote}>
+                <IconButton size='small'>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </Card>
           </Link>
         );
